@@ -20,6 +20,13 @@ var descriptions = {
 	"country" : "from "
 }
 
+function loggedIn() {
+	if(c.user && c.user != "") {
+		$("#overlay").hide('slow');
+		$('#search').focus();
+	}
+}
+
 function updateResults() {
 	console.log("Updating results...");
 
@@ -174,6 +181,18 @@ $(function(){
 		$("#search").attr("value", q.replace(/\+/g, " "));
 		updateResults();
 	}
+
+	$("a#login").click(function() {
+		c.authenticate(loggedIn);
+	})
+
+	c.isOnCampus(function(error, data) {
+		if(!error) {
+			if(!data.on_campus && !c.user) {
+				$("#overlay").fadeIn();
+			}
+		}
+	});
 
 	$("#search").on('input', function(evt) {
 		if(timeout != null) {
