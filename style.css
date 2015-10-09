@@ -5,7 +5,7 @@ body {
 	font-family: sans-serif;
 }
 
-div#overlay {
+#overlay {
 	position: fixed;
 	padding-top: 10%;
 
@@ -22,18 +22,18 @@ div#overlay {
 	text-align: center;
 }
 
-div#overlay h1, h2 {
+#overlay h1, h2 {
 	margin-bottom: 0;
 	margin-top: 0;
 }
 
-a#login {
+#login {
 	margin-top: 2em;
 	color: black;
 	text-decoration: none;
 }
 
-div#frame img {
+#frame img {
 	width: 96px;
 	height: 128px;
 
@@ -41,7 +41,7 @@ div#frame img {
 	padding: 0;
 }
 
-div#frame img.flag {
+#frame img.flag {
 	float: right;
 	width: initial;
 	height: initial;
@@ -49,7 +49,7 @@ div#frame img.flag {
 	margin-top: -6px;
 }
 
-img#spinner {
+#spinner {
 	margin: auto;
 	display: none;
 	position: fixed;
@@ -99,27 +99,27 @@ div.highlight a {
 }
 
 
-div.c-n {
+.c-n {
 	background-color: yellow;
 	color: purple;
 }
 
-div.c-k {
+.c-k {
 	background-color: red;
 	color: white;
 }
 
-div.c-m {
+.c-m {
 	background-color: blue;
 	color: white;
 }
 
-div.c-3 {
+.c-3 {
 	background-color: green;
 	color: white;
 }
 
-div.c-none {
+.c-none {
 	background-color: white;
 }
 
@@ -132,9 +132,9 @@ div.highlight {
 
     max-width: 192px;
 
-    -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,1);
-	-moz-box-shadow: 0px 0px 20px 1px rgba(0,0,0,1);
-	box-shadow: 0px 0px 20px 1px rgba(0,0,0,1);
+    -webkit-box-shadow: 0 0 20px 1px rgba(0,0,0,1);
+    -moz-box-shadow: 0 0 20px 1px rgba(0,0,0,1);
+    box-shadow: 0 0 20px 1px rgba(0,0,0,1);
 }
 
 div.highlight ul {
