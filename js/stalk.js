@@ -2,6 +2,8 @@ var c;
 var timeout = null;
 var lastLength = 0;
 
+var showInactive = false;
+
 var store = [];
 
 var descriptions = {
@@ -34,6 +36,9 @@ function updateResults() {
 	var spinId = setTimeout(blankOut, 500);
 	var query = $("#search").val();
 
+	if(!showInactive) {
+		query += " active: true";
+	}
 
 	c.search(query, [], 7000, 0, function(error, data) {
 		clearTimeout(spinId);
@@ -115,7 +120,7 @@ function makeHighlight(uid) {
 		function() {},
 		function() {
 			this.remove();
-		}	
+		}
 	);
 
 	anchor.before(highlight);
@@ -211,3 +216,16 @@ $(function(){
 
 	$("#search").change(updateResults);
 });
+
+$("#show_inactive").click(function() {
+	showInactive = !showInactive;
+
+	if(showInactive) {
+		$("#show_inactive").text("Hide inactive");
+	} else {
+		$("#show_inactive").text("Show inactive");
+	}
+
+	updateResults();
+	return false;
+})
