@@ -59,6 +59,11 @@ body {
 }
 
 #frame {
+	display: flex;
+	/* align-items: center; */
+	justify-content: center;
+	flex-wrap: wrap;
+
 	padding-top: 128px;
 	padding-left: 5%;
 	padding-right: 5%;
