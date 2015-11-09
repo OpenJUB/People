@@ -36,6 +36,10 @@ function updateResults() {
 	var spinId = setTimeout(blankOut, 500);
 	var query = $("#search").val();
 
+	try{
+		window.history.pushState( {} , window.title, '/?q='+escape(query) );
+	} catch(e){}
+
 	if(!showInactive) {
 		query += " active: true";
 	}
