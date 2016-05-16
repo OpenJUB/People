@@ -101,6 +101,19 @@ div.highlight a {
 
 }
 
+#searcharea {
+	display: none; 
+}
+
+#switch_mode {
+	position: absolute;
+	top: 16px;
+	left: 16px;
+
+	text-decoration: none;
+	color: lightgray;
+}
+
 #show_inactive {
 	position: absolute;
 	top: 16px;
@@ -110,7 +123,7 @@ div.highlight a {
 	color: lightgray;
 }
 
-#search {
+#search, #mass {
 	position: fixed;
 
 	width: 75%;
@@ -125,6 +138,21 @@ div.highlight a {
 	margin: 1em 0 1em 12.5%;
 }
 
+#massleft, #massright {
+	width: 50%; 
+	text-align: center; 
+	
+	position: absolute; 
+	top: 300px; 
+}
+
+#massleft {
+	left: 0px;
+}
+
+#massright {
+	right: 0px; 
+}
 
 .c-n {
 	background-color: yellow;
