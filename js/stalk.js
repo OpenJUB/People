@@ -3,6 +3,7 @@ var timeout = null;
 var lastLength = 0;
 
 var showInactive = false;
+var massMode		 = false; 
 
 var store = [];
 
@@ -68,6 +69,64 @@ function updateResults() {
 			);
 		}
 	});
+}
+
+function updateMassResults(){
+	
+	// find all the searches
+	var searches = $("#mass").val().split('\n').map(function(e){return e.trim(); }).filter(function(e){return !!e; }); 
+	
+	var frame = $("#frame").empty(); 
+	
+	// have a counter and results
+	var results = []; 
+	var counter = 0; 
+	
+	function updateDraw(){
+		
+		// only draw once all results are here
+		if(counter < searches.length){
+			return; 
+		}
+		
+		var names = results.map(function(e){ return e ? e["fullName"] : ''; }).map(function(e){return $("<p>").text(e).html() + "<br />"}).join(''); 
+		var emails = results.map(function(e){ return e ? e["email"] : ''; }).map(function(e){return $("<p>").text(e).html() + "<br />"}).join(''); 
+		
+		$("#frame").empty().append(
+			$("<div id='massleft'>").html(names), 
+			$("<div id='massright'>").html(emails)
+		); 
+	}
+	
+	// 
+	searches.map(function(e, idx){
+		c.search(e.trim(), [], function(error, data){
+			counter += 1; 
+			
+			if(!error){
+				results[idx] = data.data[0] || false; 
+			} else {
+				results[idx] = false; 
+			}
+			
+			updateDraw(); 
+		}); 
+	}); 
+}
+
+
+function updateMode() {
+	$("#frame").empty(); 
+	
+	if(massMode){
+		$("#searchbar").hide()
+		$("#searcharea").show(); 
+		$("#mass").val("").focus(); 
+	} else {
+		$("#searcharea").hide()
+		$("#searchbar").show();
+		$("#search").val("").focus(); 
+	}
 }
 
 function getUserData(uid) {
@@ -182,10 +241,8 @@ $(function(){
 	$("#search").focus();
 
 	c = new JUB.Client("https://api.jacobs-cs.club");
-
+	
 	var q = $.query.get("q");
-
-	console.log(q);
 
 	if(typeof q == "string" && q != "") {
 		$("#search").attr("value", q.replace(/\+/g, " "));
@@ -220,17 +277,42 @@ $(function(){
 	});
 
 	$("#search").change(updateResults);
+	
+	$("#mass").keydown(function(evt){
+		if (evt.keyCode == 13 && evt.shiftKey){
+			evt.stopPropagation(); 
+			updateMassResults();
+			
+			return false; 
+		}
+	});
+	
+	
+
+	$("#show_inactive").click(function() {
+		showInactive = !showInactive;
+
+		if(showInactive) {
+			$("#show_inactive").text("Hide inactive");
+		} else {
+			$("#show_inactive").text("Show inactive");
+		}
+
+		updateResults();
+		return false;
+	})
+
+
+	$("#switch_mode").click(function() {
+	 	massMode = !massMode;
+
+		if(massMode) {
+			$("#switch_mode").text("Switch to Simple Mode");
+		} else {
+			$("#switch_mode").text("Switch to Mass Mode");
+		}
+		
+		updateMode(); 
+		return false;
+	})
 });
-
-$("#show_inactive").click(function() {
-	showInactive = !showInactive;
-
-	if(showInactive) {
-		$("#show_inactive").text("Hide inactive");
-	} else {
-		$("#show_inactive").text("Show inactive");
-	}
-
-	updateResults();
-	return false;
-})
