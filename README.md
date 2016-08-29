@@ -1,0 +1,13 @@
+People
+======
+The boring version of #Stalk hopefully not controversial among the EQ committee.
+
+Development
+-----------
+- Clone the repo
+- Run a webserver locally `python -m http.server`
+- Go to `localhost:8000`
+
+
+
+
