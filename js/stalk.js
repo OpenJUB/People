@@ -44,7 +44,7 @@ function updateResults() {
 		query += " active: true";
 	}
 
-	c.search(query, [], 7000, 0, function(error, data) {
+	c.search(query, [], 250, 0, function(error, data) {
 		clearTimeout(spinId);
 		hideSpinner();
 		$("#frame").empty();
