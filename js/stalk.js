@@ -180,7 +180,7 @@ function hideSpinner() {
 $(function(){
 	$("#search").focus();
 
-	c = new JUB.Client("https://api.jacobs.university");
+	c = new JUB.Client("https://api.jacobs-cs.club");
 
 	var q = $.query.get("q");
 
