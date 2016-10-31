@@ -116,7 +116,9 @@ function makeHighlight(uid) {
 
 	highlight
 	.append(img)
-	.append($("<img>").attr("src", usr.flag).attr("class", "flag"))
+	.append($("<img>").attr("src", usr.flag).attr("class", "flag").on("error", function(){
+    $(this).attr("src", "/imgs/NoCountry.png").off("error"); 
+  }))
 	.append(getHighlightDetails(usr))
 	.css(getHighlightPosition(anchor));
 
