@@ -17,9 +17,9 @@ var descriptions = {
 	"major" : "studies ",
 	"phone" : "phone: ",
 	"room" : function(rm) {
-		return (rm.match("^[N|C|M|K|A|B|C|D]{2}-[0-9]{3}$") ? "lives in " : "room: ") + rm
+		return (rm.match("^[N|C|M|K|A|B|C|D]{2}-[0-9]{3}$") ? "lives in " : "room: ") + rm;
 	},
-	"country" : "from "
+	"country" : "from ";
 }
 
 function loggedIn() {
