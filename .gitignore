@@ -1,0 +1,6 @@
++# Directory containing IDE specific files for jetbrains IDEs
+ +.idea/
+ +
+ +# Directory containing IDE specific files visual studio code
+ +.vscode/ 
+ 
