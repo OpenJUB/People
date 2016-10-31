@@ -57,6 +57,9 @@ function updateResults() {
 					.append($("<img></img>")
 					.attr("src", e.picture)
 					.attr("id", e.username)
+          .on("error", function(){
+            $(this).attr("src", "/imgs/duck.jpg").off("error");
+          })
 				);
 			});
 
@@ -112,7 +115,10 @@ function makeHighlight(uid) {
 
 	var img = $("<img>")
 				.attr("src", usr.picture)
-				.attr("data-uid", uid);
+				.attr("data-uid", uid)
+        .on("error", function(){
+          $(this).attr("src", "/imgs/duck.jpg").off("error");
+        });
 
 	highlight
 	.append(img)
