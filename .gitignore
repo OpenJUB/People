@@ -3,3 +3,6 @@
 
 # Directory containing IDE specific files visual studio code
 .vscode/
+
+# OS/X because people don't know global gitignore
+.DS_Store
