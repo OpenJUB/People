@@ -84,7 +84,9 @@ function updateResults() {
 				function() { // Hover in
 					makeHighlight(this.id);
 				}
-			);
+			).click(function() {
+				makeHighlight(this.id);
+			});;
 		}
 	});
 }
