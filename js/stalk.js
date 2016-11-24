@@ -1,3 +1,20 @@
+/*
+JUPI - Plain and simple jPeople client using the OpenJUB API
+Copyright (C) 2016  Leonhard Kuboschek
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 var c;
 var timeout = null;
 var lastLength = 0;
@@ -57,6 +74,9 @@ function updateResults() {
 					.append($("<img></img>")
 					.attr("src", e.picture)
 					.attr("id", e.username)
+          .on("error", function(){
+            $(this).attr("src", "/imgs/duck.jpg").off("error");
+          })
 				);
 			});
 
@@ -112,11 +132,16 @@ function makeHighlight(uid) {
 
 	var img = $("<img>")
 				.attr("src", usr.picture)
-				.attr("data-uid", uid);
+				.attr("data-uid", uid)
+        .on("error", function(){
+          $(this).attr("src", "/imgs/duck.jpg").off("error");
+        });
 
 	highlight
 	.append(img)
-	.append($("<img>").attr("src", usr.flag).attr("class", "flag"))
+	.append($("<img>").attr("src", usr.flag).attr("class", "flag").on("error", function(){
+    $(this).attr("src", "/imgs/NoCountry.png").off("error");
+  }))
 	.append(getHighlightDetails(usr))
 	.css(getHighlightPosition(anchor));
 
