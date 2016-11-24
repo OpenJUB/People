@@ -84,7 +84,7 @@ function updateResults() {
 				function() { // Hover in
 					makeHighlight(this.id);
 				}
-			).click(function() {
+			).on('touchstart', function() {
 				makeHighlight(this.id);
 			});;
 		}
