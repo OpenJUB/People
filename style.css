@@ -18,24 +18,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 body {
 	margin: 0;
 	padding: 0;
-
 	font-family: sans-serif;
 }
 
 #overlay {
 	position: fixed;
 	padding-top: 10%;
-
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
-
 	z-index: 2000;
-
 	background: white;
 	display: none;
-
 	text-align: center;
 }
 
@@ -51,9 +46,8 @@ body {
 }
 
 #frame img {
-	width: 96px;
+	width: 98px;
 	height: 128px;
-
 	margin: 0;
 	padding: 0;
 }
@@ -68,19 +62,15 @@ body {
 
 #spinner {
 	margin: auto;
-	display: none;
 	position: fixed;
-
 	top: 50%;
 	left: 50%;
 }
 
 #frame {
 	display: flex;
-	/* align-items: center; */
 	justify-content: center;
 	flex-wrap: wrap;
-
 	padding-top: 128px;
 	padding-left: 5%;
 	padding-right: 5%;
@@ -95,11 +85,9 @@ div.highlight a {
 	color: inherit;
 }
 
-/*
 #frame img {
 	display: none;
 }
-*/
 
 #privacy-text {
 	margin-top: 1em;
@@ -129,11 +117,8 @@ div.highlight a {
 
 #search {
 	position: fixed;
-
 	width: 75%;
-
 	opacity: 0.85;
-
 	font-size: 24pt;
 	border-style: none;
 	outline: none;
@@ -169,7 +154,6 @@ div.highlight a {
 
 #credits {
 	position: fixed;
-
 	right: 0.5em;
 	bottom: 0.5em;
 	color: lightgray;
@@ -183,12 +167,9 @@ div.highlight a {
 div.highlight {
     position: absolute;
     padding: 8px 8px 8px 8px;
-
     margin-top: -8px;
     margin-left: -8px;
-
     max-width: 192px;
-
     -webkit-box-shadow: 0 0 20px 1px rgba(0,0,0,1);
     -moz-box-shadow: 0 0 20px 1px rgba(0,0,0,1);
     box-shadow: 0 0 20px 1px rgba(0,0,0,1);
@@ -196,7 +177,7 @@ div.highlight {
 
 div.highlight ul {
 	list-style: none;
-	padding: 0;
+	padding: 0em;
 }
 
 div.highlight ul li {
@@ -204,5 +185,5 @@ div.highlight ul li {
 }
 
 div.highlight ul li:last-child {
-	padding-bottom: 0;
+	padding-bottom: 0em;
 }
