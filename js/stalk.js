@@ -16,11 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 var c;
-var dreamjub_url = 'http://localhost:8000/';
-var dreamjub_client_id = 'uXDaB3j1n8DiOU8WXjwCa2gbKqLveieoIDpjFa1d';
+// var dreamjub_url = 'http://localhost:8000/';
+// var dreamjub_client_id = 'uXDaB3j1n8DiOU8WXjwCa2gbKqLveieoIDpjFa1d';
 
-// var dreamjub_url = 'https://leadership.jacobs.university/';
-// var dreamjub_client_id = 'G75yHb2NY1kPFndV6ah2SM8TmX9Wgc3AewtTuzJ7';
+var dreamjub_url = 'https://jacobs.university/';
+var dreamjub_client_id = 'XzdJ8kFrqlRGNsSF4ah5GDRDsjTeo2OciR7nf9AZ';
 
 var timeout = null;
 var lastLength = 0;
