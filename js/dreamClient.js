@@ -30,6 +30,7 @@ dreamClient.prototype.parseQuery = function(code){
   parser.setUnaryOperators([]);
   parser.setBinaryOperators({
       'equals': 2, 'is': 2, ':': 2, '=': 2, '==': 2, '===': 2,
+      'contains': 2, '~': 2,
   });
   
   // turn the code into a parse tree
@@ -46,10 +47,16 @@ dreamClient.prototype._parseTree = function(tree){
   // a binary expression corresponds to KEY = VALUE
   // so we need to extract the field name and value
   } else if(tree.type == 'BinaryExpression'){
-    
+    var kind = 'equals';
+    if (tree.operator === '~' || tree.operator === 'contains'){kind = 'contains';}
+
+    var result = {'type': kind};
+
     var dict = {};
     dict[this._parseAsLit(tree.left)] = this._parseAsLit(tree.right);
-    return {'type': 'equals', 'dict': dict }
+    
+    result[kind + 'dict'] = dict;
+    return result;
 
   // literal or literal-like expressions
   // these will be split and parsed seperatly later on
@@ -74,9 +81,8 @@ dreamClient.prototype._parseAsLit = function(tree){
 }
 
 dreamClient.prototype._parseCompound = function(trees){
-  var resultDict = {};
-  var isDictEmpty = true;
-  var resultLit = '';
+  var resultLit = ''; var equalsDict = {}; var containsDict = {};
+  var isEmpty = true;
   
   var result;
   for(var i = 0; i < trees.length; i++){
@@ -93,26 +99,30 @@ dreamClient.prototype._parseCompound = function(trees){
     
     // equals: add to dict
     if(result.type == 'equals' || result.type == 'combination'){
-      for (var key in result.dict){
-          isDictEmpty = false;
-          resultDict[key] = result.dict[key];
+      for (var key in result.equalsdict){
+          isEmpty = false;
+          equalsDict[key] = result.equalsdict[key];
+      }
+    }
+
+    // contains: add to dict
+    if(result.type == 'contains' || result.type == 'combination'){
+      for (var key in result.containsdict){
+          isEmpty = false;
+          containsDict[key] = result.containsdict[key];
       }
     }
     
     // and ignore everything else. 
   }
-  
-  // empty literal
-  if(resultLit == ''){
-    return { 'type': 'equals', 'dict': resultDict };
 
   // empty dict
-  } else if (isDictEmpty){
+  if (isEmpty){
     return { 'type': 'literal', 'value': resultLit };
   }
   
   // else we return a combination
-  return { 'type': 'combination', 'value': resultLit, 'dict': resultDict };
+  return { 'type': 'combination', 'value': resultLit, 'equalsdict': equalsDict, 'containsdict': containsDict };
 }
 
 dreamClient.prototype._toQueryString = function(tree){
@@ -123,17 +133,25 @@ dreamClient.prototype._toQueryString = function(tree){
     case 'equals':
       return this._toEqualString(tree);
       break;
+    case 'contains':
+      return this._toContainString(tree);
+      break;
     case 'combination':
       var litString = this._toLiteralString(tree);
       var equalString = this._toEqualString(tree);
+      var containsString = this._toContainString(tree);
 
-      if(litString == '()'){
-        return equalString; 
-      } else if(equalString == ''){
-        return litString; 
+      var clauses = [];
+      if(litString != '()'){
+        clauses.push('(' + litString + ')');
       }
-      
-      return '('+litString+') and ('+equalString+')';
+      if(equalString != '()'){
+        clauses.push('(' + equalString + ')');
+      }
+      if(containsString != '()'){
+        clauses.push('(' + containsString + ')');
+      }
+      return clauses.join(' and ');
       break;
     }
   return '';
@@ -144,8 +162,8 @@ dreamClient.prototype._toEqualString = function(tree){
 
   // $key = $value queries
   var value;
-  for(var key in tree.dict){
-    value = tree.dict[key];
+  for(var key in tree.equalsdict){
+    value = tree.equalsdict[key];
     if(key == 'major'){key = 'majorShort'; } // alias major => majorShort
     query.push(JSON.stringify(key) + " equals "+JSON.stringify(value));
   }
@@ -153,6 +171,22 @@ dreamClient.prototype._toEqualString = function(tree){
   // joined with an and
   return '('+query.join(') and (')+')';
 }
+
+dreamClient.prototype._toContainString = function(tree){
+  var query = [];
+
+  // $key = $value queries
+  var value;
+  for(var key in tree.containsdict){
+    value = tree.containsdict[key];
+    if(key == 'major'){key = 'majorShort'; } // alias major => majorShort
+    query.push(JSON.stringify(key) + " contains "+JSON.stringify(value));
+  }
+  
+  // joined with an and
+  return '('+query.join(') and (')+')';
+}
+
 
 dreamClient.prototype._toLiteralString = function(tree){
   
